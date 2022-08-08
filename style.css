@@ -1,9 +1,16 @@
+.compare_wrap{
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
 .compare {
   position: relative;
   height: 400px;
   width: 700px;
   overflow: hidden;
   border-radius: 15px;
+  margin: auto;
 }
 
 .compare__delimetr {

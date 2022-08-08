@@ -2,7 +2,6 @@ const imageAfter = document.querySelector('.compare__after');
 const widthImageAfter = imageAfter.offsetWidth;
 const heightImageAfter = imageAfter.offsetHeight;
 const delimeter = document.querySelector('.compare__delimetr');
-let isActive = false;
 
 compare();
 
@@ -10,38 +9,26 @@ function compare() {
   delimeter.style.left = (widthImageAfter/2) - (delimeter.offsetWidth/2) + 'px';
   imageAfter.style.width = '50%';
 
-  delimeter.addEventListener('mousedown', activeDelimeter);
-  delimeter.addEventListener('touchstart', activeDelimeter);
-
-  delimeter.addEventListener("mousemove", onMoveDelimeter);
-  delimeter.addEventListener('touchmove', onMoveDelimeter);
-
-  window.addEventListener('mouseup', () =>{
-    isActive = false;
-  })
-
-  window.addEventListener('touchend', () => {
-    isActive = false;
-  })
-}
-
-function activeDelimeter(event){
-  event.preventDefault();
-
-  isActive = true;
+  delimeter.addEventListener('pointerdown', (event) => {
+    delimeter.addEventListener('pointermove', onMoveDelimeter);
+    delimeter.addEventListener('pointerup', () => {
+      delimeter.removeEventListener('pointermove', onMoveDelimeter)
+    });
+  });
 }
 
 function onMoveDelimeter(event){
-  if(!isActive) return;
+  
+  if(event.pressure == 0) return;
+  event.target.setPointerCapture(event.pointerId);
   moveSlider(currentPositionDelimeter(event));
 }
 
 function currentPositionDelimeter(event){
   let image = imageAfter.getBoundingClientRect();
+  
   let x = 0;
   x = event.pageX - image.left;
-
-  
 
   if(x < 0){
     x = 0;
@@ -55,6 +42,7 @@ function currentPositionDelimeter(event){
 }
 
 function moveSlider (x){
+  
   imageAfter.style.width = x + 'px';
 
   delimeter.style.left = imageAfter.offsetWidth - (delimeter.offsetWidth/2) + 'px';
