@@ -1,0 +1,53 @@
+.compare {
+  position: relative;
+  height: 400px;
+  width: 700px;
+  overflow: hidden;
+  border-radius: 15px;
+}
+
+.compare__delimetr {
+  position: absolute;
+  top: 0;
+  width: 3px;
+  height: 100%;
+  background: #333333;
+  cursor: grab;
+  z-index: 2;
+}
+
+.compare__delimetr::before,
+.compare__delimetr::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 50%;
+  width: 20px;
+  height: 40px;
+  background: #222222;
+  border: 1px solid #f2f2f2;
+  transform: translate(0, -50%)
+}
+
+.compare__delimetr::before {
+  left: 5px;
+  border-radius: 3px 20px 20px 3px;
+}
+
+.compare__delimetr::after {
+  right: 5px;
+  border-radius: 20px 3px 3px 20px;
+}
+
+.compare__image {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.compare__image img {
+  height: 400px;
+  width: 700px;
+  object-fit: cover;
+}
